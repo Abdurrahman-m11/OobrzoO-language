@@ -1,0 +1,2 @@
+# OobrzoO-language
+custom language
