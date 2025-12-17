@@ -3,298 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Cipher Translator</title>
+    <title>oobrzoo Translator</title>
+    <link href="https://fonts.cdnfonts.com/css/square-721" rel="stylesheet">
     <style>
-        * {
+        body {
+            background-color: #000000;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><defs><style>@import url("https://fonts.cdnfonts.com/css/square-721"); text { font-family: "Square 721", monospace; font-size: 20px; fill: rgba(255, 215, 0, 0.15); letter-spacing: 2px; }</style></defs><g transform="rotate(-45 200 200)"><text x="0" y="30">BISCUITS</text><text x="0" y="70">BRZ</text><text x="0" y="110">BISCUITS</text><text x="0" y="150">BRZ</text><text x="0" y="190">BISCUITS</text><text x="0" y="230">BRZ</text><text x="0" y="270">BISCUITS</text><text x="0" y="310">BRZ</text><text x="0" y="350">BISCUITS</text><text x="0" y="390">BRZ</text></g><g transform="translate(200, 0) rotate(-45 200 200)"><text x="0" y="30">BISCUITS</text><text x="0" y="70">BRZ</text><text x="0" y="110">BISCUITS</text><text x="0" y="150">BRZ</text><text x="0" y="190">BISCUITS</text><text x="0" y="230">BRZ</text><text x="0" y="270">BISCUITS</text><text x="0" y="310">BRZ</text><text x="0" y="350">BISCUITS</text><text x="0" y="390">BRZ</text></g></svg>');
+            background-size: 400px 400px;
+            background-repeat: repeat;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e6e6e6;
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Square 721', 'Square721 BT', monospace;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9));
+            z-index: -1;
         }
-        
-        header {
+
+        .translator-container {
+            width: 90%;
+            max-width: 1400px;
+            background: rgba(20, 20, 20, 0.92);
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.2),
+                inset 0 0 25px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border: 1px solid #4cc9f0;
         }
-        
+
         h1 {
-            color: #4cc9f0;
-            font-size: 2.5em;
-            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
-            margin-bottom: 10px;
+            color: #FFD700;
+            text-shadow: 
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 0 15px rgba(255, 215, 0, 0.7);
+            font-size: 3em;
+            margin: 0 0 10px 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
-        
-        .subtitle {
-            color: #9d9d9d;
-            font-size: 1.1em;
-        }
-        
+
         .translator-box {
             display: flex;
-            flex-direction: column;
             gap: 30px;
-            margin-bottom: 40px;
         }
-        
-        @media (min-width: 768px) {
+
+        @media (max-width: 768px) {
             .translator-box {
-                flex-direction: row;
+                flex-direction: column;
             }
         }
-        
+
         .panel {
             flex: 1;
-            background: rgba(25, 25, 45, 0.8);
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid #4361ee;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
         }
-        
+
         .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #4361ee;
+            margin-bottom: 15px;
         }
-        
+
         .panel-title {
-            color: #f72585;
+            color: #FFD700;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
             font-size: 1.5em;
-            font-weight: bold;
+            letter-spacing: 2px;
         }
-        
+
         .mode-badge {
-            background: #4361ee;
-            color: white;
-            padding: 5px 15px;
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
+            padding: 8px 16px;
             border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
             font-size: 0.9em;
+            letter-spacing: 1px;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
         }
-        
+
         textarea {
-            width: 100%;
-            height: 300px;
-            background: rgba(10, 10, 20, 0.8);
-            border: 2px solid #7209b7;
-            border-radius: 8px;
-            color: #ffffff;
-            padding: 15px;
-            font-size: 16px;
-            resize: vertical;
+            flex: 1;
+            min-height: 350px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            border-radius: 10px;
+            color: #FFD700;
+            padding: 20px;
+            font-family: 'Square 721', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            resize: none;
             outline: none;
-            transition: border-color 0.3s;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
         }
-        
+
+        textarea::placeholder {
+            color: rgba(255, 215, 0, 0.4);
+        }
+
         textarea:focus {
-            border-color: #4cc9f0;
-            box-shadow: 0 0 15px rgba(76, 201, 240, 0.3);
+            border-color: #FFE55C;
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.5),
+                inset 0 0 15px rgba(255, 215, 0, 0.1);
         }
-        
+
         .controls {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         button {
             flex: 1;
-            padding: 15px;
+            padding: 16px;
             border: none;
             border-radius: 8px;
+            font-family: 'Square 721', monospace;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            transition: all 0.3s;
         }
-        
+
         .encode-btn {
-            background: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(255, 100, 0, 0.9), rgba(255, 50, 0, 0.8));
+            color: #FFD700;
+            border: 2px solid #FF8000;
         }
-        
+
         .decode-btn {
-            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.9), rgba(0, 50, 200, 0.8));
+            color: #FFD700;
+            border: 2px solid #0080FF;
         }
-        
+
         .clear-btn {
-            background: linear-gradient(135deg, #7209b7 0%, #560bad 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(128, 0, 128, 0.9), rgba(100, 0, 100, 0.8));
+            color: #FFD700;
+            border: 2px solid #800080;
         }
-        
+
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
         }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
+
         .stats {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            font-size: 0.9em;
-            color: #9d9d9d;
-        }
-        
-        .instructions {
-            background: rgba(25, 25, 45, 0.8);
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 40px;
-            border: 1px solid #7209b7;
-        }
-        
-        .instructions h3 {
-            color: #4cc9f0;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .instructions ul {
-            list-style-position: inside;
-            margin-left: 10px;
-        }
-        
-        .instructions li {
-            margin-bottom: 10px;
-            padding-left: 10px;
-        }
-        
-        .code-block {
-            background: rgba(10, 10, 20, 0.8);
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            border-left: 4px solid #f72585;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .copy-btn {
-            background: #4cc9f0;
-            color: #1a1a2e;
-            padding: 8px 15px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
             margin-top: 10px;
-            font-weight: bold;
+            color: rgba(255, 215, 0, 0.8);
+            font-size: 0.9em;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
         }
-        
-        .copy-btn:hover {
-            background: #3ab8df;
-        }
-        
+
         .alert {
             position: fixed;
             top: 20px;
             right: 20px;
             padding: 15px 25px;
-            background: #4cc9f0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 165, 0, 0.9));
             color: #1a1a2e;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-family: 'Square 721', monospace;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
             transform: translateX(150%);
             transition: transform 0.3s ease;
             z-index: 1000;
+            border: 2px solid #FFD700;
+            text-shadow: 
+                -1px -1px 0 rgba(255, 255, 255, 0.5),
+                1px -1px 0 rgba(255, 255, 255, 0.5);
         }
-        
+
         .alert.show {
             transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .translator-container {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            textarea {
+                min-height: 250px;
+                font-size: 16px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔐 CUSTOM CIPHER TRANSLATOR</h1>
-            <p class="subtitle">Translate between English and your secret cipher instantly • No limits • No installation</p>
-        </header>
+    <div class="translator-container">
+        <div class="header">
+            <h1>oobrzoo Translator</h1>
+        </div>
         
         <div class="translator-box">
             <div class="panel">
                 <div class="panel-header">
-                    <span class="panel-title">INPUT TEXT</span>
-                    <span class="mode-badge">ENGLISH → CIPHER</span>
+                    <span class="panel-title">INPUT</span>
+                    <span class="mode-badge">ENGLISH → oobrzoo</span>
                 </div>
-                <textarea id="inputText" placeholder="Type or paste your English text here..."></textarea>
+                <textarea id="inputText" placeholder="Type English text..."></textarea>
                 <div class="stats">
-                    <span id="inputCount">Characters: 0</span>
+                    <span id="inputCount">Chars: 0</span>
                     <span id="inputWords">Words: 0</span>
                 </div>
                 <div class="controls">
-                    <button class="encode-btn" onclick="encodeText()">🔒 ENCODE</button>
-                    <button class="clear-btn" onclick="clearInput()">🗑️ CLEAR</button>
+                    <button class="encode-btn" onclick="encodeText()">ENCODE</button>
+                    <button class="clear-btn" onclick="clearInput()">CLEAR</button>
                 </div>
             </div>
             
             <div class="panel">
                 <div class="panel-header">
-                    <span class="panel-title">OUTPUT TEXT</span>
-                    <span class="mode-badge">CIPHER → ENGLISH</span>
+                    <span class="panel-title">OUTPUT</span>
+                    <span class="mode-badge">oobrzoo → ENGLISH</span>
                 </div>
-                <textarea id="outputText" placeholder="Encoded/decoded text will appear here..." readonly></textarea>
+                <textarea id="outputText" placeholder="oobrzoo message..." readonly></textarea>
                 <div class="stats">
-                    <span id="outputCount">Characters: 0</span>
+                    <span id="outputCount">Chars: 0</span>
                     <span id="outputRatio">Ratio: 0.00x</span>
                 </div>
                 <div class="controls">
-                    <button class="decode-btn" onclick="decodeText()">🔓 DECODE</button>
-                    <button class="copy-btn" onclick="copyOutput()">📋 COPY OUTPUT</button>
+                    <button class="decode-btn" onclick="decodeText()">DECODE</button>
+                    <button class="encode-btn" onclick="copyOutput()">COPY</button>
                 </div>
             </div>
         </div>
-        
-        <div class="instructions">
-            <h3>⚡ HOW TO USE</h3>
-            <ul>
-                <li><strong>Encode:</strong> Type English text in the left box → Click "ENCODE" → Get cipher text in right box</li>
-                <li><strong>Decode:</strong> Paste cipher text in the right box → Click "DECODE" → Get English text in left box</li>
-                <li><strong>No limits:</strong> Works with texts of any length (essays, books, etc.)</li>
-                <li><strong>Your cipher rules:</strong> Spaces = <code>_\/_</code> • Separator = <code>:|:</code></li>
-            </ul>
-            
-            <div class="code-block">Example: "HELLO" encodes to: ӒϩϡԎϧӔϙԐϛӖϝ:|:ԢϙӖϛԤϝӚϞԦϟӜ:|:ӔϝԎϧӐϙԒϛӖϞϡ:|:ӔϝԎϧӐϙԒϛӖϞϡ:|:ԌϙӖϛԊϝӚϞԆϟӜϡ</div>
-            
-            <button class="copy-btn" onclick="loadExample()">📋 LOAD ALIEXPRESS EXAMPLE</button>
-        </div>
     </div>
     
-    <div class="alert" id="alert">Copied to clipboard!</div>
+    <div class="alert" id="alert">Copied!</div>
 
     <script>
-        // Your exact cipher mapping
-        const cipherMap = {
+        const oobrzooMap = {
             'A': 'ӴϞҨԚϠӺҔϾԦϡӜ', 'B': 'ӶϣԤҎϧӂϙԬϩӸϗ',
             'C': 'ԠϛӍϹԒϿӖϥԆϞӚ', 'D': 'ӔϟԌϝӐϣԎϧӒϩϡ',
             'E': 'ԢϙӖϛԤϝӚϞԦϟӜ', 'F': 'ӺϡԬϣӂϙԮϛӸϝϗ',
@@ -310,29 +311,26 @@
             'Y': 'ԤϙӖϛԦϝӜϞԢϟӚϡ', 'Z': 'ӸϞϗԮϡӶϙϧӂϛԬϝ'
         };
 
-        // Create reverse map
-        const reverseMap = {};
-        for (const [key, value] of Object.entries(cipherMap)) {
-            reverseMap[value] = key;
+        const reverseOobrzooMap = {};
+        for (const [key, value] of Object.entries(oobrzooMap)) {
+            reverseOobrzooMap[value] = key;
         }
 
         const spaceSymbol = '_\/_';
         const separator = ':|:';
 
-        // Update character counts
         function updateStats() {
             const inputText = document.getElementById('inputText').value;
             const outputText = document.getElementById('outputText').value;
             
-            document.getElementById('inputCount').textContent = `Characters: ${inputText.length}`;
+            document.getElementById('inputCount').textContent = `Chars: ${inputText.length}`;
             document.getElementById('inputWords').textContent = `Words: ${inputText.trim() === '' ? 0 : inputText.trim().split(/\s+/).length}`;
-            document.getElementById('outputCount').textContent = `Characters: ${outputText.length}`;
+            document.getElementById('outputCount').textContent = `Chars: ${outputText.length}`;
             
             const ratio = inputText.length > 0 ? (outputText.length / inputText.length).toFixed(2) : '0.00';
-            document.getElementById('outputRatio').textContent = `Expansion: ${ratio}x`;
+            document.getElementById('outputRatio').textContent = `Ratio: ${ratio}x`;
         }
 
-        // Encode function
         function encodeText() {
             const input = document.getElementById('inputText').value.toUpperCase();
             let result = [];
@@ -340,8 +338,8 @@
             for (let char of input) {
                 if (char === ' ') {
                     result.push(spaceSymbol);
-                } else if (cipherMap[char]) {
-                    result.push(cipherMap[char]);
+                } else if (oobrzooMap[char]) {
+                    result.push(oobrzooMap[char]);
                 } else {
                     result.push(char);
                 }
@@ -349,10 +347,9 @@
             
             document.getElementById('outputText').value = result.join(separator);
             updateStats();
-            showAlert('✅ Text encoded successfully!');
+            showAlert('Encoded');
         }
 
-        // Decode function
         function decodeText() {
             const input = document.getElementById('outputText').value;
             const parts = input.split(separator);
@@ -361,8 +358,8 @@
             for (let part of parts) {
                 if (part === spaceSymbol) {
                     result.push(' ');
-                } else if (reverseMap[part]) {
-                    result.push(reverseMap[part]);
+                } else if (reverseOobrzooMap[part]) {
+                    result.push(reverseOobrzooMap[part]);
                 } else {
                     result.push(part);
                 }
@@ -370,31 +367,21 @@
             
             document.getElementById('inputText').value = result.join('');
             updateStats();
-            showAlert('✅ Text decoded successfully!');
+            showAlert('Decoded');
         }
 
-        // Utility functions
         function clearInput() {
             document.getElementById('inputText').value = '';
             document.getElementById('outputText').value = '';
             updateStats();
-            showAlert('🗑️ Cleared both text areas');
         }
 
         function copyOutput() {
             const outputText = document.getElementById('outputText');
             outputText.select();
-            outputText.setSelectionRange(0, 99999); // For mobile
+            outputText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(outputText.value);
-            showAlert('📋 Copied to clipboard!');
-        }
-
-        function loadExample() {
-            const example = "AliExpress: The Global Bazaar and the Reclamation of Choice\n\nIn the dominant narrative of modern e-commerce... [your full essay here]";
-            document.getElementById('inputText').value = example;
-            updateStats();
-            encodeText();
-            showAlert('📝 Example loaded and encoded!');
+            showAlert('Copied');
         }
 
         function showAlert(message) {
@@ -403,10 +390,9 @@
             alert.classList.add('show');
             setTimeout(() => {
                 alert.classList.remove('show');
-            }, 3000);
+            }, 1500);
         }
 
-        // Initialize
         document.getElementById('inputText').addEventListener('input', updateStats);
         document.getElementById('outputText').addEventListener('input', updateStats);
         updateStats();
