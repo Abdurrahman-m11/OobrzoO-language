@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oobrzoo Translator</title>
-    <!-- Use a downloadable version of Square 721 -->
     <style>
         @font-face {
             font-family: 'Square 721';
@@ -14,7 +13,7 @@
         }
         
         body {
-            background-color: #003399; /* Subaru iconic blue */
+            background-color: #003399;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -22,10 +21,9 @@
             justify-content: center;
             align-items: center;
             font-family: 'Square 721', 'Courier New', monospace;
-            color: #FFD700; /* Gold color */
+            color: #FFD700;
         }
 
-        /* Create the biscuits/brz pattern in gold */
         body::before {
             content: '';
             position: fixed;
@@ -51,7 +49,6 @@
             z-index: -1;
         }
 
-        /* Add floating BISCUITS/BRZ text */
         .floating-text {
             position: fixed;
             color: rgba(255, 215, 0, 0.15);
@@ -66,7 +63,7 @@
         .translator-container {
             width: 95%;
             max-width: 1400px;
-            background: rgba(0, 51, 153, 0.9); /* Subaru blue with transparency */
+            background: rgba(0, 51, 153, 0.9);
             border: 4px solid #FFD700;
             border-radius: 15px;
             padding: 30px;
@@ -193,7 +190,7 @@
             font-weight: bold;
             cursor: pointer;
             background: #FFD700;
-            color: #003399; /* Subaru blue */
+            color: #003399;
             transition: all 0.2s;
             text-shadow: 
                 1px 1px 0 rgba(255, 255, 255, 0.5),
@@ -285,7 +282,6 @@
     </style>
 </head>
 <body>
-    <!-- Floating background text -->
     <div class="floating-text" style="top: 10%; left: 5%;">BISCUITS</div>
     <div class="floating-text" style="top: 20%; left: 15%;">BRZ</div>
     <div class="floating-text" style="top: 30%; left: 25%;">BISCUITS</div>
@@ -304,32 +300,32 @@
         <div class="translator-box">
             <div class="panel">
                 <div class="panel-header">
-                    <span class="panel-title">INPUT</span>
-                    <span class="mode-badge">ENGLISH → oobrzoo</span>
+                    <span class="panel-title">ENGLISH TEXT</span>
+                    <span class="mode-badge">→ ENCODE TO oobrzoo</span>
                 </div>
-                <textarea id="inputText" placeholder="Type English text..."></textarea>
+                <textarea id="inputText" placeholder="Type English text here..."></textarea>
                 <div class="stats">
                     <span id="inputCount">Chars: 0</span>
                     <span id="inputWords">Words: 0</span>
                 </div>
                 <div class="controls">
-                    <button onclick="encodeText()">ENCODE</button>
+                    <button onclick="encodeText()">ENCODE →</button>
                     <button onclick="clearInput()">CLEAR</button>
                 </div>
             </div>
             
             <div class="panel">
                 <div class="panel-header">
-                    <span class="panel-title">OUTPUT</span>
-                    <span class="mode-badge">oobrzoo → ENGLISH</span>
+                    <span class="panel-title">oobrzoo MESSAGE</span>
+                    <span class="mode-badge">← DECODE TO ENGLISH</span>
                 </div>
-                <textarea id="outputText" placeholder="oobrzoo message..." readonly></textarea>
+                <textarea id="outputText" placeholder="Paste oobrzoo message here to decode..."></textarea>
                 <div class="stats">
                     <span id="outputCount">Chars: 0</span>
                     <span id="outputRatio">Ratio: 0.00x</span>
                 </div>
                 <div class="controls">
-                    <button onclick="decodeText()">DECODE</button>
+                    <button onclick="decodeText()">← DECODE</button>
                     <button onclick="copyOutput()">COPY</button>
                 </div>
             </div>
@@ -391,11 +387,17 @@
             
             document.getElementById('outputText').value = result.join(separator);
             updateStats();
-            showAlert('Encoded');
+            showAlert('✅ Encoded to oobrzoo');
         }
 
         function decodeText() {
-            const input = document.getElementById('outputText').value;
+            const input = document.getElementById('outputText').value.trim();
+            
+            if (!input.includes(separator) && !input.includes(spaceSymbol)) {
+                showAlert('⚠️ This doesn\'t look like oobrzoo message');
+                return;
+            }
+            
             const parts = input.split(separator);
             let result = [];
             
@@ -411,14 +413,14 @@
             
             document.getElementById('inputText').value = result.join('');
             updateStats();
-            showAlert('Decoded');
+            showAlert('✅ Decoded to English');
         }
 
         function clearInput() {
             document.getElementById('inputText').value = '';
             document.getElementById('outputText').value = '';
             updateStats();
-            showAlert('Cleared');
+            showAlert('🗑️ Cleared');
         }
 
         function copyOutput() {
@@ -426,7 +428,7 @@
             outputText.select();
             outputText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(outputText.value);
-            showAlert('Copied');
+            showAlert('📋 Copied oobrzoo message');
         }
 
         function showAlert(message) {
@@ -435,14 +437,13 @@
             alert.classList.add('show');
             setTimeout(() => {
                 alert.classList.remove('show');
-            }, 1500);
+            }, 2000);
         }
 
         document.getElementById('inputText').addEventListener('input', updateStats);
         document.getElementById('outputText').addEventListener('input', updateStats);
         updateStats();
         
-        // Focus input on load
         document.getElementById('inputText').focus();
     </script>
 </body>
